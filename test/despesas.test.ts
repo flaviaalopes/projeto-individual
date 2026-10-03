@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { adicionarDespesa, removerDespesa } from "../src/despesas";
+import { adicionarDespesa, removerDespesa, despesasDaCategoria } from "../src/despesas";
 import { Despesa } from "../src/tipos";
 
 describe("adicionarDespesa", () => {
@@ -72,5 +72,33 @@ describe("removerDespesa", () => {
     const resultado = removerDespesa([despesaExistente], "id-inexistente");
     expect(resultado).toEqual([despesaExistente]);
     expect(resultado).not.toBe([despesaExistente]); // array novo, não a mesma referência
+  });
+});
+
+describe("despesasDaCategoria", () => {
+  const alimentacao: Despesa = {
+    id: "1",
+    descricao: "Mercado",
+    valor: 150,
+    categoria: "alimentação",
+    mes: 3,
+  };
+
+  const transporte: Despesa = {
+    id: "2",
+    descricao: "Uber",
+    valor: 25,
+    categoria: "transporte",
+    mes: 3,
+  };
+
+  it("Retorna só as despesas da categoria pedida", () => {
+    const resultado = despesasDaCategoria([alimentacao, transporte], "transporte");
+    expect(resultado).toEqual([transporte]);
+  });
+
+  it("Nenhuma despesa da categoria, retorna array vazio", () => {
+    const resultado = despesasDaCategoria([alimentacao], "moradia");
+    expect(resultado).toEqual([]);
   });
 });
