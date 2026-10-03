@@ -47,7 +47,7 @@ describe("formatarRelatorio", () => {
     { id: "2", descricao: "Aluguel", valor: 1200, categoria: "moradia", mes: 1 },
   ];
 
-  it("caso normal: contém título em maiúsculas, categorias, total geral e maior despesa", () => {
+  it("Contém título em maiúsculas, categorias, total geral e maior despesa", () => {
     const resultado = formatarRelatorio(despesas);
 
     expect(resultado).toContain("RELATÓRIO");
@@ -59,7 +59,7 @@ describe("formatarRelatorio", () => {
     expect(resultado).toContain("Aluguel"); // maior despesa
   });
 
-  it("caso de borda: lista vazia ainda gera relatório com totais zerados", () => {
+  it("Lista vazia ainda gera relatório com totais zerados", () => {
     const resultado = formatarRelatorio([]);
 
     expect(resultado).toContain("RELATÓRIO");
