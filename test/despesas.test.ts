@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { adicionarDespesa, removerDespesa, despesasDaCategoria, totalGasto } from "../src/despesas";
+import { adicionarDespesa, removerDespesa, despesasDaCategoria, totalGasto, maiorDespesa } from "../src/despesas";
 import { Despesa } from "../src/tipos";
 
 describe("adicionarDespesa", () => {
@@ -128,5 +128,33 @@ describe("totalGasto", () => {
   it("Lista vazia retorna 0", () => {
     const resultado = totalGasto([]);
     expect(resultado).toBe(0);
+  });
+});
+
+describe("maiorDespesa", () => {
+  const despesa1: Despesa = {
+    id: "1",
+    descricao: "Mercado",
+    valor: 150,
+    categoria: "alimentação",
+    mes: 3,
+  };
+
+  const despesa2: Despesa = {
+    id: "2",
+    descricao: "Aluguel",
+    valor: 1200,
+    categoria: "moradia",
+    mes: 3,
+  };
+
+  it("caso normal: retorna a despesa de maior valor", () => {
+    const resultado = maiorDespesa([despesa1, despesa2]);
+    expect(resultado).toEqual(despesa2);
+  });
+
+  it("caso de borda: lista vazia retorna undefined", () => {
+    const resultado = maiorDespesa([]);
+    expect(resultado).toBeUndefined();
   });
 });
