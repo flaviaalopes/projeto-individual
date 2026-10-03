@@ -13,3 +13,7 @@ export function adicionarDespesa(
 
   return [...despesas, nova];
 }
+
+export function removerDespesa(despesas: Despesa[], id: string): Despesa[] {
+  throw new Error("não implementado");
+}

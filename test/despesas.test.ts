@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { adicionarDespesa } from "../src/despesas";
+import { adicionarDespesa, removerDespesa } from "../src/despesas";
 import { Despesa } from "../src/tipos";
 
 describe("adicionarDespesa", () => {
@@ -52,4 +52,25 @@ describe("adicionarDespesa", () => {
     adicionarDespesa([despesaExistente], despesaMesInvalido)
   ).toThrow();
 });
+});
+
+describe("removerDespesa", () => {
+  const despesaExistente: Despesa = {
+    id: "1",
+    descricao: "Mercado",
+    valor: 150,
+    categoria: "alimentação",
+    mes: 3,
+  };
+
+  it("caso normal: remove a despesa com o id informado", () => {
+    const resultado = removerDespesa([despesaExistente], "1");
+    expect(resultado).toHaveLength(0);
+  });
+
+  it("caso de borda: id não existe, retorna cópia igual", () => {
+    const resultado = removerDespesa([despesaExistente], "id-inexistente");
+    expect(resultado).toEqual([despesaExistente]);
+    expect(resultado).not.toBe([despesaExistente]); // array novo, não a mesma referência
+  });
 });
