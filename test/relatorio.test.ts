@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { descricaoCategoria, matrizCategoriaMes } from "../src/relatorio";
+import { descricaoCategoria, matrizCategoriaMes, formatarRelatorio } from "../src/relatorio";
 import { Despesa } from "../src/tipos";
 
 describe("descricaoCategoria", () => {
@@ -38,5 +38,33 @@ describe("matrizCategoriaMes", () => {
       expect(linha).toHaveLength(12);
       expect(linha.every((valor) => valor === 0)).toBe(true);
     });
+  });
+});
+
+describe("formatarRelatorio", () => {
+  const despesas: Despesa[] = [
+    { id: "1", descricao: "Mercado", valor: 100, categoria: "alimentação", mes: 1 },
+    { id: "2", descricao: "Aluguel", valor: 1200, categoria: "moradia", mes: 1 },
+  ];
+
+  it("caso normal: contém título em maiúsculas, categorias, total geral e maior despesa", () => {
+    const resultado = formatarRelatorio(despesas);
+
+    expect(resultado).toContain("RELATÓRIO");
+    expect(resultado).toContain("Alimentação");
+    expect(resultado).toContain("Moradia");
+    expect(resultado).toContain("100.00");
+    expect(resultado).toContain("1200.00");
+    expect(resultado).toContain("1300.00"); // total geral
+    expect(resultado).toContain("Aluguel"); // maior despesa
+  });
+
+  it("caso de borda: lista vazia ainda gera relatório com totais zerados", () => {
+    const resultado = formatarRelatorio([]);
+
+    expect(resultado).toContain("RELATÓRIO");
+    expect(resultado).toContain("Alimentação");
+    expect(resultado).toContain("0.00");
+    expect(resultado).not.toContain("undefined");
   });
 });

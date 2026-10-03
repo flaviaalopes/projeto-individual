@@ -43,3 +43,7 @@ export function matrizCategoriaMes(despesas: Despesa[]): number[][] {
 
   return matriz;
 }
+
+export function formatarRelatorio(despesas: Despesa[]): string {
+  throw new Error("não implementado");
+}
