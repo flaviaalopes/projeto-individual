@@ -48,10 +48,40 @@ describe("adicionarDespesa", () => {
     mes: 13,
   };
 
-  expect(() =>
-    adicionarDespesa([despesaExistente], despesaMesInvalido)
-  ).toThrow();
-});
+    expect(() =>
+        adicionarDespesa([despesaExistente], despesaMesInvalido)
+    ).toThrow();
+    });
+   it("Não altera o array original recebido como parâmetro", () => {
+    const despesasOriginais: Despesa[] = [
+      {
+        id: "1",
+        descricao: "Mercado",
+        valor: 150,
+        categoria: "alimentação",
+        mes: 3,
+      },
+    ];
+
+    // Guarda uma cópia para comparar depois (não pode ser a mesma referência).
+    const copiaAntes = [...despesasOriginais];
+
+    const novaDespesa: Despesa = {
+      id: "2",
+      descricao: "Uber",
+      valor: 25,
+      categoria: "transporte",
+      mes: 3,
+    };
+
+    adicionarDespesa(despesasOriginais, novaDespesa);
+
+    // O array original deve continuar com o mesmo conteúdo e tamanho,
+    // pois adicionarDespesa usa spread ([...despesas, nova]) para criar
+    // um array novo, em vez de usar push, que alteraria o array recebido.
+    expect(despesasOriginais).toEqual(copiaAntes);
+    expect(despesasOriginais).toHaveLength(1);
+  }); 
 });
 
 describe("removerDespesa", () => {
