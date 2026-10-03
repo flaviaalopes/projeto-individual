@@ -38,4 +38,18 @@ describe("adicionarDespesa", () => {
 
     expect(() => adicionarDespesa([despesaExistente], despesaInvalida)).toThrow();
   });
+
+  it("caso de borda: lança erro se mes não estiver entre 1 e 12", () => {
+  const despesaMesInvalido: Despesa = {
+    id: "4",
+    descricao: "Mês inválido",
+    valor: 50,
+    categoria: "lazer",
+    mes: 13,
+  };
+
+  expect(() =>
+    adicionarDespesa([despesaExistente], despesaMesInvalido)
+  ).toThrow();
+});
 });
