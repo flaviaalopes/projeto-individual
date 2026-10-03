@@ -14,5 +14,32 @@ export function descricaoCategoria(categoria: Categoria): string {
 }
 
 export function matrizCategoriaMes(despesas: Despesa[]): number[][] {
-  throw new Error("não implementado");
+  const matriz: number[][] = [];
+
+  // Monta a estrutura: uma linha por categoria, cada linha com 12 colunas (meses) zeradas.
+  for (let i = 0; i < CATEGORIAS.length; i++) {
+    const linha: number[] = [];
+    for (let mes = 0; mes < 12; mes++) {
+      linha.push(0);
+    }
+    matriz.push(linha);
+  }
+
+  // Percorre cada despesa e soma o valor na célula [categoria][mês] correta.
+  for (let i = 0; i < despesas.length; i++) {
+    const despesa = despesas[i];
+    if (despesa === undefined) {
+      continue;
+    }
+
+    const indiceCategoria = CATEGORIAS.indexOf(despesa.categoria);
+    const indiceMes = despesa.mes - 1; // mes vai de 1 a 12, array é 0 a 11
+
+    const linha = matriz[indiceCategoria];
+    if (linha !== undefined && linha[indiceMes] !== undefined) {
+      linha[indiceMes] += despesa.valor;
+    }
+  }
+
+  return matriz;
 }
