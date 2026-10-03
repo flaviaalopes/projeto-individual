@@ -27,7 +27,7 @@ describe("adicionarDespesa", () => {
     expect([despesaExistente]).toHaveLength(1);
   });
 
-  it("caso de borda: lança erro se valor for menor ou igual a zero", () => {
+  it("Lança erro se valor for menor ou igual a zero", () => {
     const despesaInvalida: Despesa = {
       id: "3",
       descricao: "Erro proposital",
@@ -39,7 +39,7 @@ describe("adicionarDespesa", () => {
     expect(() => adicionarDespesa([despesaExistente], despesaInvalida)).toThrow();
   });
 
-  it("caso de borda: lança erro se mes não estiver entre 1 e 12", () => {
+  it("Lança erro se mes não estiver entre 1 e 12", () => {
   const despesaMesInvalido: Despesa = {
     id: "4",
     descricao: "Mês inválido",
@@ -63,12 +63,12 @@ describe("removerDespesa", () => {
     mes: 3,
   };
 
-  it("caso normal: remove a despesa com o id informado", () => {
+  it("Remove a despesa com o id informado", () => {
     const resultado = removerDespesa([despesaExistente], "1");
     expect(resultado).toHaveLength(0);
   });
 
-  it("caso de borda: id não existe, retorna cópia igual", () => {
+  it("Id não existe, retorna cópia igual", () => {
     const resultado = removerDespesa([despesaExistente], "id-inexistente");
     expect(resultado).toEqual([despesaExistente]);
     expect(resultado).not.toBe([despesaExistente]); // array novo, não a mesma referência
