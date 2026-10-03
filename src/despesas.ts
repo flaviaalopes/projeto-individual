@@ -30,5 +30,11 @@ export function totalGasto(despesas: Despesa[]): number {
 }
 
 export function maiorDespesa(despesas: Despesa[]): Despesa | undefined {
-  throw new Error("não implementado");
+  if (despesas.length === 0) {
+    return undefined;
+  }
+
+  return despesas.reduce((maior, atual) =>
+    atual.valor > maior.valor ? atual : maior
+  );
 }
